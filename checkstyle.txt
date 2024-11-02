@@ -1,2 +1,7 @@
 Starting audit...
+[ERROR] D:\OOP\Tema0\tema\.\src\main\Main.java:10:14: Using the '.*' form of import should be avoided - fileio.*. [AvoidStarImport]
+[ERROR] D:\OOP\Tema0\tema\.\src\main\Main.java:98: Line is longer than 100 characters (found 113). [LineLength]
+[ERROR] D:\OOP\Tema0\tema\.\src\main\Main.java:100: Line is longer than 100 characters (found 113). [LineLength]
+[ERROR] D:\OOP\Tema0\tema\.\src\main\Main.java:115:10: Empty statement. [EmptyStatement]
 Audit done.
+Checkstyle ends with 4 errors.

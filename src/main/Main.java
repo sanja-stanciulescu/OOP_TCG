@@ -15,7 +15,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Random;
+
+import static java.util.Collections.shuffle;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implementation.
@@ -87,31 +91,56 @@ public final class Main {
         for (GameInput game : games) {
             StartGameInput startGame = game.getStartGame();
             ArrayList<ActionsInput> actions = game.getActions();
-            for (ActionsInput action : actions) {
-                switch (action.getCommand()) {
-                    case "getPlayerDeck":
-                        ObjectNode getPlayerDeckNode = mapper.createObjectNode();
-                        getPlayerDeckNode.put("command", action.getCommand());
-                        getPlayerDeckNode.put("playerIdx", action.getPlayerIdx());
-                        ArrayList<CardInput> deck;
-                        if (action.getPlayerIdx() == 1) {
-                            deck = inputData.getPlayerOneDecks().getDecks().get(startGame.getPlayerOneDeckIdx());
-                        } else {
-                            deck = inputData.getPlayerTwoDecks().getDecks().get(startGame.getPlayerTwoDeckIdx());
-                        }
-                        ArrayNode deckArray = mapper.createArrayNode();
-                        for (CardInput card : deck) {
-                            ObjectNode cardNode = mapper.convertValue(card, ObjectNode.class);
-                            deckArray.add(cardNode);
-                        }
-                        getPlayerDeckNode.set("output", deckArray);
-                        output.add(getPlayerDeckNode);
-                        break;
-                    default:
-                        System.out.println("Unknown command: " + action.getCommand());
-                        break;
+
+            //Shuffle each chosen deck
+            ArrayList<CardInput> deckPlayerOne = new ArrayList<>(inputData.getPlayerOneDecks().getDecks().get(startGame.getPlayerOneDeckIdx()));
+            ArrayList<CardInput> deckPlayerTwo = new ArrayList<>(inputData.getPlayerTwoDecks().getDecks().get(startGame.getPlayerTwoDeckIdx()));
+
+            Random rand1 = new Random(startGame.getShuffleSeed());
+            Collections.shuffle(deckPlayerOne, rand1);
+            Random rand2 = new Random(startGame.getShuffleSeed());
+            Collections.shuffle(deckPlayerTwo, rand2);
+
+            //Initializes the start of the rounds
+            int manaPerRound = 1;
+            int turnPlayerOne = 1;
+            int turnPlayerTwo = 1;
+            while (turnPlayerOne != 0 && turnPlayerTwo != 0) {
+                //Get first card from deck
+                deckPlayerOne.remove(0);
+                deckPlayerTwo.remove(0);
+                manaPerRound++;
+
+                //Parses the actions array and prints each expected output
+                for (ActionsInput action : actions) {
+                    switch (action.getCommand()) {
+                        case "getPlayerDeck":
+                            ObjectNode getPlayerDeckNode = mapper.createObjectNode();
+                            getPlayerDeckNode.put("command", action.getCommand());
+                            getPlayerDeckNode.put("playerIdx", action.getPlayerIdx());
+                            ArrayList<CardInput> deck;
+                            if (action.getPlayerIdx() == 1) {
+                                deck = deckPlayerOne;
+                            } else {
+                                deck = deckPlayerTwo;
+                            }
+                            ArrayNode deckArray = mapper.createArrayNode();
+                            for (CardInput card : deck) {
+                                ObjectNode cardNode = mapper.convertValue(card, ObjectNode.class);
+                                deckArray.add(cardNode);
+                            }
+                            getPlayerDeckNode.set("output", deckArray);
+                            output.add(getPlayerDeckNode);
+                            break;
+                        default:
+                            System.out.println("Unknown command: " + action.getCommand());
+                            break;
+                    }
                 }
+                break;
             }
+
+
         };
         //objectNode.put("command", inputData.getPlayerOneDecks().getNrDecks());
         //objectNode.put("playerIdx", 2);

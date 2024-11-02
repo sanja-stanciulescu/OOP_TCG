@@ -2,7 +2,7 @@
 
 # Tema POO  - GwentStone
 
-<div align="center"><img src="https://tenor.com/u0b0xvnt7ga.gif" width="500px"></div>
+<div align="center"><img src="https://media1.tenor.com/m/8roYGyMXjrgAAAAd/cyno-genshin-impact.gif" width="500px"></div>
 
 #### Assignment Link: [https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema)
 

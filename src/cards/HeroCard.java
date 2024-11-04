@@ -1,11 +1,14 @@
 package cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
-
-import java.util.ArrayList;
+import table.GameTable;
 
 public class HeroCard extends Card{
     private int health;
+
+    @JsonIgnore
+    int attacked;
 
     public HeroCard() {
     }
@@ -13,6 +16,7 @@ public class HeroCard extends Card{
     public HeroCard(CardInput playerHero) {
         super(playerHero);
         health = 30;
+        attacked = 0;
     }
 
     public int getHealth() {
@@ -23,14 +27,40 @@ public class HeroCard extends Card{
         this.health = health;
     }
 
+    public int getAttacked() {
+        return attacked;
+    }
+
+    public void setAttacked(int attacked) {
+        this.attacked = attacked;
+    }
+
     public void loseHealthAfterAttack(int attackDamage) {
         health -= attackDamage;
     }
 
-    @Override
-    public void useAbility() {
-        System.out.println("Hero uses ability on row");
+
+    public void useAbility(GameTable table, int affectedRow) {
+        attacked = 1;
+        switch (name) {
+            case "Lord Royce":
+                table.freezes(affectedRow);
+                break;
+            case "Empress Thorina":
+                table.removeHealthiestCard(affectedRow);
+                break;
+            case "King Mudface":
+                table.injectHealth(affectedRow);
+                break;
+            case "General Kocioraw":
+                table.buffAttack(affectedRow);
+                break;
+            default:
+                System.out.println("Invalid hero name");
+                break;
+        }
     }
+
 
     @Override
     public String toString() {

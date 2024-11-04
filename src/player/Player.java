@@ -99,7 +99,7 @@ public class Player {
     /*
     * This method is used when the player wants to put a card on the table
      */
-    public MinionCard putCardOnTable(int handIdx) {
+    public MinionCard checkCardInHand(int handIdx) {
         //System.out.println("HandIdx is " + handIdx + " and the hand size is " + playerHand.size());
         if (!playerHand.isEmpty() && handIdx < playerHand.size()) {
             return playerHand.get(handIdx);

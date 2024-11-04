@@ -36,7 +36,11 @@ public class MinionCard extends Card{
     }
 
     public void setAttackDamage(int attackDamage) {
-        this.attackDamage = attackDamage;
+        if (attackDamage < 0) {
+            this.attackDamage = 0;
+        } else {
+            this.attackDamage = attackDamage;
+        }
     }
 
     public int getIsFrozen() {
@@ -84,14 +88,49 @@ public class MinionCard extends Card{
         return 0;
     }
 
-    @Override
-    public void useAbility() {
+    public int useAbility(MinionCard attackedCard) {
+        attacked = 1;
+        switch (name) {
+            case "The Ripper":
+                int attackedCardDamage = attackedCard.getAttackDamage();
+                attackedCard.setAttackDamage(attackedCardDamage - 2);
+                break;
 
+            case "Miraj":
+                int healthCopy = health;
+                health = attackedCard.getHealth();
+                attackedCard.setHealth(healthCopy);
+                break;
+
+            case "The Cursed One":
+                int attackCopy = attackedCard.getAttackDamage();
+                healthCopy = attackedCard.getHealth();
+                attackedCard.setHealth(attackCopy);
+                attackedCard.setAttackDamage(healthCopy);
+                break;
+
+            case "Disciple":
+                healthCopy = attackedCard.getHealth();
+                attackedCard.setHealth(healthCopy + 2);
+                break;
+
+            default:
+                System.out.println("Invalid minion name");
+                break;
+        }
+        if (attackedCard.getHealth() <= 0) {
+            return 1;
+        }
+        return 0;
     }
 
-    @Override
-    public void useAttackOnHero() {
-
+    public int useAttackOnHero(HeroCard hero) {
+        attacked = 1;
+        hero.loseHealthAfterAttack(attackDamage);
+        if (hero.getHealth() <= 0) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override

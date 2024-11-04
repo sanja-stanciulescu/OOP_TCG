@@ -1,20 +1,94 @@
 [ {
-  "command" : "getPlayerTurn",
-  "output" : 1
+  "command" : "getCardAtPosition",
+  "x" : 1,
+  "y" : 0,
+  "output" : {
+    "mana" : 3,
+    "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper",
+    "health" : 4,
+    "attackDamage" : 6
+  }
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 3,
+  "y" : 0,
+  "output" : {
+    "mana" : 1,
+    "description" : "Premium card: Fear him. Your last breath is now.",
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker",
+    "health" : 1,
+    "attackDamage" : 3
+  }
 }, {
   "command" : "getPlayerTurn",
   "output" : 1
 }, {
+  "command" : "getCardAtPosition",
+  "x" : 3,
+  "y" : 0,
+  "output" : {
+    "mana" : 1,
+    "description" : "Premium card: Fear him. Your last breath is now.",
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker",
+    "health" : 1,
+    "attackDamage" : 3
+  }
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 1,
+  "y" : 0,
+  "output" : {
+    "mana" : 3,
+    "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper",
+    "health" : 4,
+    "attackDamage" : 6
+  }
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 3,
+  "error" : "Selected row does not belong to the enemy."
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 0,
+  "error" : "Selected row does not belong to the enemy."
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 0,
+  "error" : "Selected row does not belong to the enemy."
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 1,
+  "error" : "Selected row does not belong to the enemy."
+}, {
   "command" : "getPlayerTurn",
   "output" : 1
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 1
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 2,
+  "error" : "Hero has already attacked this turn."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,
-  "output" : 14
+  "output" : 8
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
-  "output" : 14
+  "output" : 8
 }, {
   "command" : "getCardsOnTable",
   "output" : [ [ {
@@ -45,20 +119,6 @@
     "name" : "The Ripper",
     "health" : 4,
     "attackDamage" : 6
-  }, {
-    "mana" : 4,
-    "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
-    "colors" : [ "Red", "Purple" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 1
-  }, {
-    "mana" : 4,
-    "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
-    "colors" : [ "Red", "Purple" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 1
   }, {
     "mana" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",

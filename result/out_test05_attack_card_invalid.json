@@ -1,135 +1,52 @@
 [ {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 3,
+  "output" : "No card available at that position."
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 2,
+  "y" : 0,
+  "output" : {
     "mana" : 3,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
-    "health" : 5,
+    "health" : 1,
     "attackDamage" : 3
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
-    "colors" : [ "Brown", "Black", "Grey" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
+  }
 }, {
   "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 3,
-    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
-    "colors" : [ "Brown", "Black", "Grey" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 2
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 5,
-    "attackDamage" : 3
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
+  "cardAttacker" : {
+    "x" : 2,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 0,
+    "y" : 0
+  },
+  "error" : "Attacked card is not of type 'Tank'."
 }, {
   "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 1,
-    "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ],
-    "name" : "Sentinel",
-    "health" : 2,
-    "attackDamage" : 2
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 5,
-    "attackDamage" : 3
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
+  "cardAttacker" : {
+    "x" : 2,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 1,
+    "y" : 0
+  },
+  "error" : "Attacker card has already attacked this turn."
 }, {
   "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 5,
-    "attackDamage" : 3
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 1,
-    "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ],
-    "name" : "Sentinel",
-    "health" : 2,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 5,
-    "attackDamage" : 3
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
-    "colors" : [ "Brown", "Black", "Grey" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 5,
-    "attackDamage" : 3
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
-    "colors" : [ "Brown", "Black", "Grey" ],
-    "name" : "Goliath",
-    "health" : 8,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 2,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel",
-    "health" : 3,
-    "attackDamage" : 1
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 2,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel",
-    "health" : 3,
-    "attackDamage" : 1
-  } ],
+  "cardAttacker" : {
+    "x" : 3,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 3,
+    "y" : 0
+  },
   "error" : "Attacked card does not belong to the enemy."
 }, {
   "command" : "getCardsInHand",
@@ -156,6 +73,18 @@
 }, {
   "command" : "getPlayerTurn",
   "output" : 2
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 1,
+  "y" : 0,
+  "output" : {
+    "mana" : 3,
+    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "colors" : [ "Brown", "Black", "Grey" ],
+    "name" : "Goliath",
+    "health" : 2,
+    "attackDamage" : 2
+  }
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,
@@ -192,7 +121,7 @@
     "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
     "colors" : [ "Brown", "Black", "Grey" ],
     "name" : "Goliath",
-    "health" : 8,
+    "health" : 2,
     "attackDamage" : 2
   }, {
     "mana" : 4,
@@ -206,7 +135,7 @@
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
-    "health" : 5,
+    "health" : 1,
     "attackDamage" : 3
   }, {
     "mana" : 3,

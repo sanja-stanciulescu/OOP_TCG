@@ -2,9 +2,18 @@
   "command" : "getPlayerTurn",
   "output" : 1
 }, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,
   "output" : 1
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
@@ -13,121 +22,124 @@
   "command" : "getPlayerTurn",
   "output" : 1
 }, {
-  "command" : "getPlayerTurn",
-  "output" : 2
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 1,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel",
-    "health" : 2,
-    "attackDamage" : 2
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 6,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "getPlayerMana",
-  "playerIdx" : 1,
-  "output" : 0
-}, {
-  "command" : "getPlayerTurn",
-  "output" : 2
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 2,
-    "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ],
-    "name" : "Disciple",
-    "health" : 4,
-    "attackDamage" : 0
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 6,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 3,
-    "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ],
-    "name" : "The Ripper",
-    "health" : 1,
-    "attackDamage" : 6
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 2,
-    "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ],
-    "name" : "Disciple",
-    "health" : 4,
-    "attackDamage" : 0
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
-}, {
-  "command" : "getPlayerTurn",
-  "output" : 1
-}, {
-  "command" : "getPlayerMana",
-  "playerIdx" : 1,
-  "output" : 3
-}, {
-  "command" : "getPlayerMana",
-  "playerIdx" : 2,
-  "output" : 7
-}, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
     "mana" : 2,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
     "health" : 2,
     "attackDamage" : 2
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 3,
-    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden",
-    "health" : 6,
-    "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
+  }
 }, {
-  "command" : "cardUsesAttack",
-  "cardAttacker" : [ {
-    "mana" : 4,
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 2,
+  "y" : 0,
+  "output" : {
+    "mana" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper",
-    "health" : 4,
+    "health" : 1,
     "attackDamage" : 6
-  } ],
-  "cardAttacked" : [ {
-    "mana" : 1,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel",
+  }
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 0,
+  "error" : "Not enough mana to use hero's ability."
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 2,
+  "y" : 0,
+  "output" : {
+    "mana" : 3,
+    "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper",
+    "health" : 1,
+    "attackDamage" : 6
+  }
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 0
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker",
     "health" : 2,
     "attackDamage" : 2
-  } ],
-  "error" : "Attacked card is not of type 'Tank’."
+  }
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
+  "command" : "useAttackHero",
+  "cardAttacker" : {
+    "x" : 0,
+    "y" : 1
+  },
+  "error" : "Attacked card is not of type 'Tank'."
+}, {
+  "command" : "useAttackHero",
+  "cardAttacker" : {
+    "x" : 0,
+    "y" : 1
+  },
+  "error" : "Attacked card is not of type 'Tank'."
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 1
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 3
+}, {
+  "command" : "useHeroAbility",
+  "affectedRow" : 0,
+  "playerIdx" : 1,
+  "error" : "Selected row does not belong to the current player."
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker",
+    "health" : 3,
+    "attackDamage" : 2
+  }
+}, {
+  "command" : "getFrozenCardsOnTable",
+  "output" : [ ]
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 5
+}, {
+  "command" : "useAttackHero",
+  "cardAttacker" : {
+    "x" : 1,
+    "y" : 0
+  },
+  "error" : "Attacked card is not of type 'Tank'."
+}, {
+  "gameEnded" : "Player one killed the enemy hero."
 }, {
   "command" : "getCardsOnTable",
   "output" : [ [ {
@@ -135,22 +147,8 @@
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker",
-    "health" : 2,
+    "health" : 3,
     "attackDamage" : 2
-  }, {
-    "mana" : 1,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel",
-    "health" : 2,
-    "attackDamage" : 2
-  }, {
-    "mana" : 2,
-    "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ],
-    "name" : "Disciple",
-    "health" : 4,
-    "attackDamage" : 0
   } ], [ {
     "mana" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
@@ -170,8 +168,8 @@
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden",
-    "health" : 6,
-    "attackDamage" : 2
+    "health" : 2,
+    "attackDamage" : 0
   }, {
     "mana" : 4,
     "description" : "Premium card: Insanity is always an option, now it is an absolute.",

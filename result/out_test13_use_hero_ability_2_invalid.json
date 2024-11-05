@@ -25,7 +25,6 @@
 }, {
   "command" : "useHeroAbility",
   "affectedRow" : 1,
-  "playerIdx" : 1,
   "error" : "Selected row does not belong to the current player."
 }, {
   "command" : "useHeroAbility",
@@ -61,7 +60,6 @@
 }, {
   "command" : "useHeroAbility",
   "affectedRow" : 2,
-  "playerIdx" : 2,
   "error" : "Selected row does not belong to the current player."
 }, {
   "command" : "useHeroAbility",

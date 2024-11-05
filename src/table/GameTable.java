@@ -79,9 +79,22 @@ public class GameTable {
         }
     }
 
+    public void updateTankCoord(int index, int i) {
+        ArrayList<Coordinates> rowCoordinates = tankCoordinates.get(index);
+        for (Coordinates coordinates : rowCoordinates) {
+            if (coordinates.getX() == tankCoordinates.get(index).get(i).getX()) {
+                if (coordinates.getY() > tankCoordinates.get(index).get(i).getY()) {
+                    int y = coordinates.getY();
+                    coordinates.setY(coordinates.getY() - 1);
+                }
+            }
+        }
+    }
+
     public void removeTank(int x, int y, int index) {
         int i = checkTanks(x, y, index);
         if (i != -1) {
+            updateTankCoord(index, i);
             tankCoordinates.get(index).remove(i);
         }
     }

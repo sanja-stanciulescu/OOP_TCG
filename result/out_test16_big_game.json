@@ -110,7 +110,6 @@
 }, {
   "command" : "useHeroAbility",
   "affectedRow" : 0,
-  "playerIdx" : 1,
   "error" : "Selected row does not belong to the current player."
 }, {
   "command" : "getCardAtPosition",
@@ -221,4 +220,13 @@
     "health" : 3,
     "attackDamage" : 5
   } ]
+}, {
+  "command" : "getTotalGamesPlayed",
+  "output" : 1
+}, {
+  "command" : "getPlayerTwoWins",
+  "output" : 0
+}, {
+  "command" : "getPlayerOneWins",
+  "output" : 1
 } ]

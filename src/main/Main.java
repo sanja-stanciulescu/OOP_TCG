@@ -94,6 +94,8 @@ public final class Main {
         //Go through multiple games
         ArrayList<GameInput> games = inputData.getGames();
         int gamesPlayed = 0;
+        int gamesPlayerOneWon = 0;
+        int gamesPlayerTwoWon = 0;
         for (GameInput game : games) {
             gamesPlayed++;
             int gameEnded = 0;
@@ -162,7 +164,7 @@ public final class Main {
             //Start playing rounds
             while (playerOne.getPlayerHero().getHealth() > 0 && playerTwo.getPlayerHero().getHealth() > 0) {
                 //Increment mana
-                if (manaPerRound <= 10) {
+                if (manaPerRound < 10) {
                     manaPerRound++;
                 }
                 playerOne.addMana(manaPerRound);
@@ -237,7 +239,11 @@ public final class Main {
                                 for (int k = 0; k < 5; ++k) {
                                     if (table.getCard(j, k) != null) {
                                         table.getCard(j, k).setAttacked(0);
-                                        table.getCard(j, k).setIsFrozen(0);
+                                        if (player.getPlayerIdx() == 1 && (j == 2 || j == 3)) {
+                                            table.getCard(j, k).setIsFrozen(0);
+                                        } else if (player.getPlayerIdx() == 2 && (j == 0 || j == 1)) {
+                                            table.getCard(j, k).setIsFrozen(0);
+                                        }
                                     }
                                 }
                             }
@@ -536,7 +542,7 @@ public final class Main {
                                         err = attackerCard.useAttackOnHero(playerTwo.getPlayerHero());
                                         if (err == 1) {
                                             gameEnded = 1;
-                                            playerOne.winsGame();
+                                            gamesPlayerOneWon++;
                                             ObjectNode errorCardNode = mapper.createObjectNode();
                                             errorCardNode.put("gameEnded", "Player one killed the enemy hero.");
                                             output.add(errorCardNode);
@@ -545,7 +551,7 @@ public final class Main {
                                         err = attackerCard.useAttackOnHero(playerOne.getPlayerHero());
                                         if (err == 1) {
                                             gameEnded = 1;
-                                            playerTwo.winsGame();
+                                            gamesPlayerTwoWon++;
                                             ObjectNode errorCardNode = mapper.createObjectNode();
                                             errorCardNode.put("gameEnded", "Player two killed the enemy hero.");
                                             output.add(errorCardNode);
@@ -573,7 +579,7 @@ public final class Main {
                                 output.add(errorCardNode);
                                 break;
                             } else if (hero.getName().equals("Lord Royce") || hero.getName().equals("Empress Thorina")) {
-                                if (affectedRow == player.getPlayerIdx() || affectedRow == (player.getPlayerIdx() + 1)) {
+                                if ((player.getPlayerIdx() == 1 && (affectedRow == 0 || affectedRow == 1)) || (player.getPlayerIdx() == 2 && (affectedRow == 2 || affectedRow == 3))) {
                                     hero.useAbility(table, affectedRow);
                                     player.useMana(hero.getMana());
                                 } else {
@@ -592,7 +598,6 @@ public final class Main {
                                     ObjectNode errorCardNode = mapper.createObjectNode();
                                     errorCardNode.put("command", action.getCommand());
                                     errorCardNode.put("affectedRow", affectedRow);
-                                    errorCardNode.put("playerIdx", player.getPlayerIdx());
                                     errorCardNode.put("error", "Selected row does not belong to the current player.");
                                     output.add(errorCardNode);
                                 }
@@ -616,6 +621,27 @@ public final class Main {
                             }
                             errorCardNode.set("output", frozenArray);
                             output.add(errorCardNode);
+                            break;
+
+                        case "getPlayerOneWins":
+                            ObjectNode playerOneWinsNode = mapper.createObjectNode();
+                            playerOneWinsNode.put("command", action.getCommand());
+                            playerOneWinsNode.put("output", gamesPlayerOneWon);
+                            output.add(playerOneWinsNode);
+                            break;
+
+                        case "getPlayerTwoWins":
+                            ObjectNode playerTwoWinsNode = mapper.createObjectNode();
+                            playerTwoWinsNode.put("command", action.getCommand());
+                            playerTwoWinsNode.put("output", gamesPlayerTwoWon);
+                            output.add(playerTwoWinsNode);
+                            break;
+
+                        case "getTotalGamesPlayed":
+                            ObjectNode totalGamesPlayedNode = mapper.createObjectNode();
+                            totalGamesPlayedNode.put("command", action.getCommand());
+                            totalGamesPlayedNode.put("output", gamesPlayed);
+                            output.add(totalGamesPlayedNode);
                             break;
 
                         default:

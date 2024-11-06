@@ -86,6 +86,14 @@ public class Player {
         this.playerHand = playerHand;
     }
 
+    public ArrayList<MinionCard> getPlayerDeck() {
+        return playerDeck;
+    }
+
+    public void setPlayerDeck(ArrayList<MinionCard> playerDeck) {
+        this.playerDeck = playerDeck;
+    }
+
     /*
     * This method is used to add cards into the player's hand
     */

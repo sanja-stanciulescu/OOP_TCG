@@ -14,9 +14,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
-    int gamesPlayed;
-    AtomicInteger gamesPlayerOneWon;
-    AtomicInteger gamesPlayerTwoWon;
+    public int gamesPlayed;
+    public AtomicInteger gamesPlayerOneWon;
+    public AtomicInteger gamesPlayerTwoWon;
 
     public GameManager() {
         gamesPlayed = 0;

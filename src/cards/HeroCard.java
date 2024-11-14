@@ -4,43 +4,83 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import fileio.CardInput;
 import table.GameTable;
 
-public class HeroCard extends Card{
+public class HeroCard extends Card {
     private int health;
 
     @JsonIgnore
-    int attacked;
+    private int attacked;
 
     public HeroCard() {
     }
 
-    public HeroCard(CardInput playerHero) {
+    public HeroCard(final CardInput playerHero) {
         super(playerHero);
-        health = 30;
+        this.setHealth(30);
         attacked = 0;
     }
 
+    /**
+     * Retrieves the current health value.
+     *
+     * @return the health value
+     */
     public int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    /**
+     * Sets the health value.
+     *
+     * @param health the new health value to set
+     */
+    public void setHealth(final int health) {
         this.health = health;
     }
 
+    /**
+     * Retrieves the attack status.
+     *
+     * @return the attack status
+     */
     public int getAttacked() {
         return attacked;
     }
 
-    public void setAttacked(int attacked) {
+    /**
+     * Sets the attack status.
+     *
+     * @param attacked the new attack status to set
+     */
+    public void setAttacked(final int attacked) {
         this.attacked = attacked;
     }
 
-    public void loseHealthAfterAttack(int attackDamage) {
+    /**
+     * Reduces the health based on the damage taken from an attack.
+     *
+     * @param attackDamage the amount of damage to subtract from health
+     */
+    public void loseHealthAfterAttack(final int attackDamage) {
         health -= attackDamage;
     }
 
-
-    public void useAbility(GameTable table, int affectedRow) {
+    /**
+     * Uses the hero's special ability on a specified row of the game table.
+     * The ability used depends on the hero's name:
+     * <ul>
+     *     <li><strong>Lord Royce</strong> - Freezes all cards in the specified row.</li>
+     *     <li><strong>Empress Thorina</strong> - Removes the card with the highest health in
+     * the specified row.</li>
+     *     <li><strong>King Mudface</strong> - Heals all cards in the specified row.</li>
+     *     <li><strong>General Kocioraw</strong> - Increases the attack of all cards in the
+     * specified row.</li>
+     *     <li>Prints an error message if the hero's name is invalid.</li>
+     * </ul>
+     *
+     * @param table the game table on which the ability is used
+     * @param affectedRow the row on the table that the ability affects
+     */
+    public void useAbility(final GameTable table, final int affectedRow) {
         attacked = 1;
         switch (name) {
             case "Lord Royce":
@@ -61,7 +101,12 @@ public class HeroCard extends Card{
         }
     }
 
-
+    /**
+     * Returns a string representation of the hero, including its mana, health,
+     * description, colors, and name.
+     *
+     * @return a formatted string with the hero's attributes
+     */
     @Override
     public String toString() {
         return "Hero{"

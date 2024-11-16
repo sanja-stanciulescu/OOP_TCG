@@ -323,14 +323,21 @@ public class Rounds {
     /**
      * Retrieves the current player's turn and adds it to the output.
      * <p>
-     * This method calculates which player's turn it is based on the starting player and the current
-     * turn in the game. It then adds the information to the output in the format specified by the action.
+     * This method calculates which player's turn it is based on the starting player
+     * and the current turn in the game. It then adds the information to the output
+     * in the format specified by the action.
      *
-     * @param output an {@link ArrayNode} where the resulting player turn information will be added as output
-     * @param action an {@link ActionsInput} object containing the action command and the player index
+     * @param output an {@link ArrayNode} where the resulting player turn information
+     * will be added as output
+     * @param action an {@link ActionsInput} object containing the action command and
+     * the player index
      * @param startGame a {@link StartGameInput} object containing the starting player information
      */
-    public void getPlayerTurn(ArrayNode output, ActionsInput action, StartGameInput startGame) {
+    public void getPlayerTurn(
+            final ArrayNode output,
+            final ActionsInput action,
+            final StartGameInput startGame
+    ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode getPlayerTurnNode = mapper.createObjectNode();
         getPlayerTurnNode.put("command", action.getCommand());
@@ -349,9 +356,10 @@ public class Rounds {
     /**
      * Ends the current player's turn and prepares for the next turn.
      * <p>
-     * This method updates the game state at the end of a player's turn. It resets the 'attacked' status
-     * for the player's hero and all cards on the table. Additionally, it handles the freezing effect based
-     * on the player's index. The method returns 1 if the round is finished (i.e., after both players have
+     * This method updates the game state at the end of a player's turn.
+     * It resets the 'attacked' status for the player's hero and all cards on the table.
+     * Additionally, it handles the freezing effect based on the player's index.
+     * The method returns 1 if the round is finished (i.e., after both players have
      * completed their turns), otherwise it returns 0 to indicate that the game is continuing.
      *
      * @param table the {@link GameTable} object representing the game board with cards placed
@@ -360,7 +368,12 @@ public class Rounds {
      * @param playerTwo the {@link Player} representing player two
      * @return 1 if the round is finished (both players have completed their turns), otherwise 0
      */
-    public int endPlayerTurn(GameTable table, Player player, Player playerOne, Player playerTwo) {
+    public int endPlayerTurn(
+            final GameTable table,
+            final Player player,
+            final Player playerOne,
+            final Player playerTwo
+    ) {
         currentTurn++;
         playerOne.getPlayerHero().setAttacked(0);
         playerTwo.getPlayerHero().setAttacked(0);
@@ -386,16 +399,23 @@ public class Rounds {
      * Places a card from the player's hand onto the game table.
      * <p>
      * This method handles the logic of placing a card from the player's hand to the game table.
-     * It checks if the player has enough mana to place the card and if there is space in the chosen row
-     * on the table. If either condition is not met, it adds an error message to the output. If the card
-     * is successfully placed, it removes the card from the player's hand and deducts the required mana.
+     * It checks if the player has enough mana to place the card and if there is space
+     * in the chosen row on the table. If either condition is not met, it adds an error message
+     * to the output.
+     * If the card is successfully placed, it removes the card from the player's hand and deducts
+     * the required mana.
      *
      * @param output the {@link ArrayNode} to which the output (including errors) will be added
      * @param player the {@link Player} placing the card on the table
-     * @param action the {@link ActionsInput} containing the details of the action (e.g., hand index)
+     * @param action the {@link ActionsInput} containing the details of the action
      * @param table the {@link GameTable} where the cards are placed
      */
-    public void placeCard(ArrayNode output, Player player, ActionsInput action, GameTable table) {
+    public void placeCard(
+            final ArrayNode output,
+            final Player player,
+            final ActionsInput action,
+            final GameTable table
+    ) {
         ObjectMapper mapper = new ObjectMapper();
         int index = player.getPlayerIdx() - 1;
         MinionCard card = player.checkCardInHand(action.getHandIdx());
@@ -423,20 +443,21 @@ public class Rounds {
     /**
      * Retrieves the cards in hand of a specified player and adds them to the output.
      * <p>
-     * This method checks which player’s hand to retrieve (based on the player index) and converts each
-     * card in the hand to a JSON object. The resulting list of cards is added to the output, which will
-     * be used for further processing or response generation.
+     * This method checks which player’s hand to retrieve (based on the player index)
+     * and converts each card in the hand to a JSON object. The resulting list of cards
+     * is added to the output, which will be used for further processing or response generation.
      *
      * @param output the {@link ArrayNode} to which the list of cards in hand will be added
-     * @param action the {@link ActionsInput} containing the player's index to identify the correct player
+     * @param action the {@link ActionsInput} containing the player's index to identify
+     * the correct player
      * @param playerOne the {@link Player} object representing the first player
      * @param playerTwo the {@link Player} object representing the second player
      */
     public void getCardsInHand(
-            ArrayNode output,
-            ActionsInput action,
-            Player playerOne,
-            Player playerTwo
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player playerOne,
+            final Player playerTwo
     ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode getCardsInHandNode = mapper.createObjectNode();
@@ -460,15 +481,20 @@ public class Rounds {
     /**
      * Retrieves all the cards currently placed on the table and adds them to the output.
      * <p>
-     * This method iterates through all the rows and columns of the game table, checking if there are cards
-     * present. If a card exists in a given cell, it is converted to a JSON object and added to the respective row.
+     * This method iterates through all the rows and columns of the game table, checking if
+     * there are cards present. If a card exists in a given cell, it is converted to a JSON
+     * object and added to the respective row.
      * Once all cards are processed, the resulting table data is added to the output.
      *
      * @param output the {@link ArrayNode} to which the cards on the table will be added
      * @param action the {@link ActionsInput} containing the command information
      * @param table the {@link GameTable} object containing the current state of the game table
      */
-    public void getCardsOnTable(ArrayNode output, ActionsInput action, GameTable table) {
+    public void getCardsOnTable(
+            final ArrayNode output,
+            final ActionsInput action,
+            final GameTable table
+    ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode getCardsOnTableNode = mapper.createObjectNode();
         getCardsOnTableNode.put("command", action.getCommand());
@@ -491,15 +517,19 @@ public class Rounds {
     /**
      * Retrieves a card at a specific position on the game table and adds it to the output.
      * <p>
-     * This method checks if a card is present at the given (x, y) position on the table. If a card exists, it is
-     * converted to a JSON object and included in the output. If no card exists at the specified position,
-     * an error message is added to the output.
+     * This method checks if a card is present at the given (x, y) position on the table.
+     * If a card exists, it is converted to a JSON object and included in the output.
+     * If no card exists at the specified position,an error message is added to the output.
      *
      * @param output the {@link ArrayNode} to which the card at the given position will be added
      * @param action the {@link ActionsInput} containing the command and position data (x and y)
      * @param table the {@link GameTable} object containing the current state of the game table
      */
-    public void getCardAtPosition(ArrayNode output, ActionsInput action, GameTable table) {
+    public void getCardAtPosition(
+            final ArrayNode output,
+            final ActionsInput action,
+            final GameTable table
+    ) {
         int xCard = action.getX();
         int yCard = action.getY();
 
@@ -525,8 +555,8 @@ public class Rounds {
     /**
      * Retrieves the remaining mana of a specified player and adds it to the output.
      * <p>
-     * This method checks which player is specified by the action and retrieves the amount of mana left
-     * for that player. The mana value is then added to the output as a JSON object.
+     * This method checks which player is specified by the action and retrieves the amount
+     * of mana left for that player. The mana value is then added to the output as a JSON object.
      *
      * @param output the {@link ArrayNode} to which the player's remaining mana will be added
      * @param action the {@link ActionsInput} containing the command and player index
@@ -534,10 +564,10 @@ public class Rounds {
      * @param playerTwo the {@link Player} object representing player two
      */
     public void getPlayerMana(
-            ArrayNode output,
-            ActionsInput action,
-            Player playerOne,
-            Player playerTwo
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player playerOne,
+            final Player playerTwo
     ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode getPlayerManaNode = mapper.createObjectNode();
@@ -554,10 +584,13 @@ public class Rounds {
     /**
      * Processes the attack action where one card attacks another on the game table.
      * <p>
-     * This method handles the logic for an attacker card using its attack on a target card. It checks for various conditions
-     * such as whether the cards are on the correct sides of the board, whether the attacker has already attacked, if the
-     * attacker is frozen, and whether the target is a valid 'Tank' card. If any conditions are not met, an error is added
-     * to the output. If the conditions are met, the attack is executed and the affected card may be removed from the table.
+     * This method handles the logic for an attacker card using its attack on a target card.
+     * It checks for various conditions such as whether the cards are on the correct sides
+     * of the board, whether the attacker has already attacked, if the attacker is frozen,
+     * and whether the target is a valid 'Tank' card.
+     * If any conditions are not met, an error is added to the output.
+     * If the conditions are met, the attack is executed and the affected card may be removed
+     * from the table.
      *
      * @param output the {@link ArrayNode} to which the results or errors will be added
      * @param action the {@link ActionsInput} containing the details of the attack action
@@ -565,10 +598,10 @@ public class Rounds {
      * @param table the {@link GameTable} representing the current game board state
      */
     public void cardUsesAttack(
-            ArrayNode output,
-            ActionsInput action,
-            Player player,
-            GameTable table
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player player,
+            final GameTable table
     ) {
         ObjectMapper mapper = new ObjectMapper();
         int index = 2 - player.getPlayerIdx();
@@ -654,16 +687,20 @@ public class Rounds {
     /**
      * Processes the ability usage action where a card uses its special ability on another card.
      * <p>
-     * This method handles the logic for a card using its ability on a target card. It checks for various conditions such
-     * as whether the attacker is frozen, whether the attacker has already attacked, and whether the card names match specific
-     * criteria. If any of these conditions are not met, an error is added to the output. If the conditions are met, the ability
-     * is executed and the affected card may be removed from the table.
+     * This method handles the logic for a card using its ability on a target card.
+     * It checks for various conditions such as whether the attacker is frozen,
+     * whether the attacker has already attacked, and whether the card names match
+     * specific criteria.
+     * If any of these conditions are not met, an error is added to the output.
+     * If the conditions are met, the ability is executed and the affected card may be
+     * removed from the table.
      * <p>
      * Special cases are handled for specific cards:
      * <ul>
-     *     <li>For the "Disciple" card, the attack must be on a card belonging to the current player.</li>
-     *     <li>For the "The Ripper", "Miraj", and "The Cursed One" cards, the attacked card must belong to the enemy and must
-     *     be of type 'Tank'.</li>
+     *     <li>For the "Disciple" card, the attack must be on a card belonging to the
+     * current player.</li>
+     *     <li>For the "The Ripper", "Miraj", and "The Cursed One" cards, the attacked card
+     * must belong to the enemy and must be of type 'Tank'.</li>
      * </ul>
      *
      * @param output the {@link ArrayNode} to which the results or errors will be added
@@ -672,10 +709,10 @@ public class Rounds {
      * @param table the {@link GameTable} representing the current game board state
      */
     public void cardUsesAbility(
-            ArrayNode output,
-            ActionsInput action,
-            Player player,
-            GameTable table
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player player,
+            final GameTable table
     ) {
         ObjectMapper mapper = new ObjectMapper();
         int index = 2 - player.getPlayerIdx();
@@ -756,7 +793,7 @@ public class Rounds {
                     output.add(errorCardNode);
                     return;
                 } else if (!table.getTankCoordinates(index).isEmpty()) {
-                    if (table.checkTanks(xAttacked, yAttacked,index) == -1) {
+                    if (table.checkTanks(xAttacked, yAttacked, index) == -1) {
                         ObjectNode errorCardNode = mapper.createObjectNode();
                         errorCardNode.put("command", action.getCommand());
                         ObjectNode attackerCardNode = mapper.convertValue(
@@ -795,14 +832,19 @@ public class Rounds {
      * The method checks several conditions before performing the attack:
      * <ul>
      *   <li>If the attacking card is frozen, the attack is prevented.</li>
-     *   <li>If the attacking card has already attacked during the current turn, the attack is prevented.</li>
-     *   <li>If the player has any "Tank" cards on the table, the attack will fail if the attacked card is not of type 'Tank'.</li>
-     *   <li>If all conditions are met, the attack is carried out and the opposing player's hero receives damage.</li>
+     *   <li>If the attacking card has already attacked during the current turn,
+     * the attack is prevented.</li>
+     *   <li>If the player has any "Tank" cards on the table, the attack will fail
+     * if the attacked card is not of type 'Tank'.</li>
+     *   <li>If all conditions are met, the attack is carried out and the opposing
+     * player's hero receives damage.</li>
      * </ul>
      * If the attack results in the hero's death, the game ends and the winner is recorded.
      *
-     * @param output the {@link ArrayNode} to store the results or errors generated during the action.
-     * @param action the {@link ActionsInput} containing the action details, including the attacker and the target hero.
+     * @param output the {@link ArrayNode} to store the results or errors generated
+     * during the action.
+     * @param action the {@link ActionsInput} containing the action details, including
+     * the attacker and the target hero.
      * @param player the {@link Player} who is performing the attack.
      * @param playerOne the first player in the game.
      * @param playerTwo the second player in the game.
@@ -811,14 +853,14 @@ public class Rounds {
      * @param gamesPlayerTwoWon Atomic counter tracking the number of games won by player two.
      */
     public void useAttackHero(
-            ArrayNode output,
-            ActionsInput action,
-            Player player,
-            Player playerOne,
-            Player playerTwo,
-            GameTable table,
-            AtomicInteger gamesPlayerOneWon,
-            AtomicInteger gamesPlayerTwoWon
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player player,
+            final Player playerOne,
+            final Player playerTwo,
+            final GameTable table,
+            final AtomicInteger gamesPlayerOneWon,
+            final AtomicInteger gamesPlayerTwoWon
     ) {
         ObjectMapper mapper = new ObjectMapper();
         int index = 2 - player.getPlayerIdx();
@@ -879,27 +921,33 @@ public class Rounds {
 
     /**
      * Executes the ability of a player's hero, provided the necessary conditions are met.
-     * The method checks if the player has enough mana to use the hero's ability, if the hero has already attacked,
-     * and whether the selected row for the ability is valid based on the hero's name and the current player's position.
+     * The method checks if the player has enough mana to use the hero's ability, if the hero
+     * has already attacked, and whether the selected row for the ability is valid based on the
+     * hero's name and the current player's position.
      * If any conditions are not met, an appropriate error message is added to the output.
      *
      * The ability execution varies based on the hero's name:
      * <ul>
-     *   <li>If the hero is "Lord Royce" or "Empress Thorina", the ability can target the enemy's rows (0, 1 for player 1 or 2, 3 for player 2).</li>
-     *   <li>If the hero is "General Kocioraw" or "King Mudface", the ability can target the current player's rows (either 0 or 1 for player 1 or 2 or 3 for player 2).</li>
+     *   <li>If the hero is "Lord Royce" or "Empress Thorina", the ability can target
+     *   the enemy's rows (0, 1 for player 1 or 2, 3 for player 2).</li>
+     *   <li>If the hero is "General Kocioraw" or "King Mudface", the ability can target
+     *   the current player's rows (either 0 or 1 for player 1 or 2 or 3 for player 2).</li>
      * </ul>
-     * If all conditions are met, the hero's ability is executed and the player's mana is updated accordingly.
+     * If all conditions are met, the hero's ability is executed and the player's mana
+     * is updated accordingly.
      *
-     * @param output the {@link ArrayNode} to store the results or errors generated during the action.
-     * @param action the {@link ActionsInput} containing the action details, including the affected row and command.
+     * @param output the {@link ArrayNode} to store the results or errors generated
+     * during the action.
+     * @param action the {@link ActionsInput} containing the action details, including
+     * the affected row and command.
      * @param player the {@link Player} performing the action.
      * @param table the {@link GameTable} representing the current state of the game.
      */
     public void useHeroAbility(
-            ArrayNode output,
-            ActionsInput action,
-            Player player,
-            GameTable table
+            final ArrayNode output,
+            final ActionsInput action,
+            final Player player,
+            final GameTable table
     ) {
         ObjectMapper mapper = new ObjectMapper();
         int affectedRow = action.getAffectedRow();
@@ -952,16 +1000,23 @@ public class Rounds {
 
     /**
      * Retrieves all frozen cards on the game table and adds them to the output.
-     * The method iterates over the game table to check each card's frozen status. If a card is frozen (i.e.,
-     * its `getIsFrozen()` method returns 1), it is added to the list of frozen cards.
-     * The resulting list of frozen cards is included in the output, along with the command and any necessary
-     * metadata.
+     * The method iterates over the game table to check each card's frozen status.
+     * If a card is frozen (i.e., its `getIsFrozen()` method returns 1), it is added
+     * to the list of frozen cards.
+     * The resulting list of frozen cards is included in the output, along with the
+     * command and any necessary metadata.
      *
-     * @param output the {@link ArrayNode} to store the results, including the frozen cards found on the table.
+     * @param output the {@link ArrayNode} to store the results, including the frozen cards
+     * found on the table.
      * @param action the {@link ActionsInput} containing the command that initiated this action.
-     * @param table the {@link GameTable} representing the current state of the game, used to access the cards on the table.
+     * @param table the {@link GameTable} representing the current state of the game,
+     * used to access the cards on the table.
      */
-    public void getFrozenCardsOnTable(ArrayNode output, ActionsInput action, GameTable table) {
+    public void getFrozenCardsOnTable(
+            final ArrayNode output,
+            final ActionsInput action,
+            final GameTable table
+    ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode errorCardNode = mapper.createObjectNode();
         errorCardNode.put("command", action.getCommand());
@@ -983,17 +1038,20 @@ public class Rounds {
 
     /**
      * Retrieves the number of games won by Player One and adds it to the output.
-     * The method creates a JSON node containing the command and the current number of games Player One has won.
+     * The method creates a JSON node containing the command and the current number
+     * of games Player One has won.
      * This data is then added to the output, allowing the system to report Player One's win count.
      *
-     * @param output the {@link ArrayNode} to store the results, including the number of wins for Player One.
+     * @param output the {@link ArrayNode} to store the results, including the number of wins
+     * for Player One.
      * @param action the {@link ActionsInput} containing the command that triggered this action.
-     * @param gamesPlayerOneWon an `AtomicInteger` representing the number of games Player One has won.
+     * @param gamesPlayerOneWon an `AtomicInteger` representing the number of games Player One
+     * has won.
      */
     public void getPlayerOneWins(
-            ArrayNode output,
-            ActionsInput action,
-            AtomicInteger gamesPlayerOneWon
+            final ArrayNode output,
+            final ActionsInput action,
+            final AtomicInteger gamesPlayerOneWon
     ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode playerOneWinsNode = mapper.createObjectNode();
@@ -1004,17 +1062,20 @@ public class Rounds {
 
     /**
      * Retrieves the number of games won by Player Two and adds it to the output.
-     * The method creates a JSON node containing the command and the current number of games Player Two has won.
+     * The method creates a JSON node containing the command and the current number
+     * of games Player Two has won.
      * This data is then added to the output, allowing the system to report Player Two's win count.
      *
-     * @param output the {@link ArrayNode} to store the results, including the number of wins for Player Two.
+     * @param output the {@link ArrayNode} to store the results, including the number of wins
+     * for Player Two.
      * @param action the {@link ActionsInput} containing the command that triggered this action.
-     * @param gamesPlayerTwoWon an `AtomicInteger` representing the number of games Player Two has won.
+     * @param gamesPlayerTwoWon an `AtomicInteger` representing the number of games Player Two
+     * has won.
      */
     public void getPlayerTwoWins(
-            ArrayNode output,
-            ActionsInput action,
-            AtomicInteger gamesPlayerTwoWon
+            final ArrayNode output,
+            final ActionsInput action,
+            final AtomicInteger gamesPlayerTwoWon
     ) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode playerTwoWinsNode = mapper.createObjectNode();
@@ -1028,11 +1089,15 @@ public class Rounds {
      * This method creates a JSON node containing the command and the total number of games played,
      * and adds this data to the output for reporting purposes.
      *
-     * @param output the {@link ArrayNode} to store the results, including the total number of games played.
+     * @param output the {@link ArrayNode} to store the results, including the total number
+     * of games played.
      * @param action the {@link ActionsInput} containing the command that triggered this action.
      * @param gamesPlayed an integer representing the total number of games played.
      */
-    public void getTotalGamesPlayed(ArrayNode output, ActionsInput action, int gamesPlayed) {
+    public void getTotalGamesPlayed(
+            final ArrayNode output,
+            final ActionsInput action,
+            final int gamesPlayed) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode totalGamesPlayedNode = mapper.createObjectNode();
         totalGamesPlayedNode.put("command", action.getCommand());

@@ -23,11 +23,26 @@ public class GameTable {
         }
     }
 
-    public ArrayList<Coordinates> getTankCoordinates(int index) {
+    /**
+     * Retrieves the coordinates of tank cards for a specific player.
+     *
+     * @param index the index of the player whose tank coordinates are being retrieved.
+     * @return a list of {@link Coordinates} objects representing the tank card positions
+     * for the player.
+     */
+    public ArrayList<Coordinates> getTankCoordinates(final int index) {
         return tankCoordinates.get(index);
     }
 
-    public void placeCard(int index, int row, MinionCard card) {
+    /**
+     * Places a card on the game table at a specific row and updates tank coordinates
+     * if the card is a tank.
+     *
+     * @param index the index of the player placing the card.
+     * @param row   the row on the table where the card should be placed (0-3).
+     * @param card  the {@link MinionCard} to be placed.
+     */
+    public void placeCard(final int index, final int row, final MinionCard card) {
         if (row >= 0 && row < 4) {
             table.get(row).add(card);
         }
@@ -37,37 +52,71 @@ public class GameTable {
         }
     }
 
-    public void removeCard(int row, int col) {
+    /**
+     * Removes a card from the game table at the specified position.
+     *
+     * @param row the row on the table where the card is located (0-3).
+     * @param col the column (position) of the card within the row.
+     */
+    public void removeCard(final int row, final int col) {
         if (row >= 0 && row < 4 && col >= 0 && col < table.get(row).size()) {
             table.get(row).remove(col);
         }
     }
 
-    public MinionCard getCard(int row, int col) {
+    /**
+     * Retrieves the card located at the specified position on the table.
+     *
+     * @param row the row on the table where the card is located (0-3).
+     * @param col the column (position) of the card within the row.
+     * @return the {@link MinionCard} at the specified position,
+     * or {@code null} if the position is invalid.
+     */
+    public MinionCard getCard(final int row, final int col) {
         if (row >= 0 && row < 4 && col >= 0 && col < table.get(row).size()) {
             return table.get(row).get(col);
         }
         return null;
     }
 
-    public boolean isSpaceOnRow(int row) {
-        //System.out.println("Row size is " + table.get(row).size());
-        if (table.get(row).size() < 5)
-            return true;
-        return false;
+    /**
+     * Checks if there is space available on the specified row to add more cards.
+     *
+     * @param row the row on the table to check (0-3).
+     * @return {@code true} if the row has fewer than 5 cards, {@code false} otherwise.
+     */
+    public boolean isSpaceOnRow(final int row) {
+        return table.get(row).size() < 5;
     }
 
-    public int checkTanks(int x, int y, int index) {
+    /**
+     * Checks if a tank card exists at the specified coordinates for a given player.
+     *
+     * @param x the row coordinate of the card.
+     * @param y the column coordinate of the card.
+     * @param index the index of the player whose tank coordinates are being checked.
+     * @return the index of the tank in the player's tank coordinate list,
+     * or {@code -1} if no tank exists at the given position.
+     */
+    public int checkTanks(final int x, final int y, final int index) {
         int i;
-        for(i = 0; i < tankCoordinates.get(index).size(); ++i) {
-            if (tankCoordinates.get(index).get(i).getX() == x && tankCoordinates.get(index).get(i).getY() == y) {
+        for (i = 0; i < tankCoordinates.get(index).size(); ++i) {
+            if (tankCoordinates.get(index).get(i).getX() == x
+                    && tankCoordinates.get(index).get(i).getY() == y) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void searchAndRemoveTank(int row, int col) {
+    /**
+     * Searches for and removes a tank card from the tank coordinates
+     * if it exists at the specified position.
+     *
+     * @param row the row coordinate of the tank card.
+     * @param col the column coordinate of the tank card.
+     */
+    public void searchAndRemoveTank(final int row, final int col) {
         for (ArrayList<Coordinates> rowCoordinates : tankCoordinates) {
             Iterator<Coordinates> iterator = rowCoordinates.iterator();
             while (iterator.hasNext()) {
@@ -79,7 +128,13 @@ public class GameTable {
         }
     }
 
-    public void updateTankCoord(int index, int i) {
+    /**
+     * Updates the tank coordinates when a tank card is removed or shifted.
+     *
+     * @param index the index of the player whose tank coordinates are being updated.
+     * @param i     the index of the tank card in the player's tank coordinate list to update.
+     */
+    public void updateTankCoord(final int index, final int i) {
         ArrayList<Coordinates> rowCoordinates = tankCoordinates.get(index);
         for (Coordinates coordinates : rowCoordinates) {
             if (coordinates.getX() == tankCoordinates.get(index).get(i).getX()) {
@@ -91,7 +146,14 @@ public class GameTable {
         }
     }
 
-    public void removeTank(int x, int y, int index) {
+    /**
+     * Removes a tank card from the tank coordinates and updates the remaining coordinates.
+     *
+     * @param x     the row coordinate of the tank card.
+     * @param y     the column coordinate of the tank card.
+     * @param index the index of the player whose tank card is being removed.
+     */
+    public void removeTank(final int x, final int y, final int index) {
         int i = checkTanks(x, y, index);
         if (i != -1) {
             updateTankCoord(index, i);
@@ -99,14 +161,25 @@ public class GameTable {
         }
     }
 
-    public void freezes(int row) {
+    /**
+     * Freezes all cards on a specified row.
+     *
+     * @param row the row of the table to freeze (0-3).
+     */
+    public void freezes(final int row) {
         for (int i = 0; i < table.get(row).size(); ++i) {
             MinionCard card = table.get(row).get(i);
             card.setIsFrozen(1);
         }
     }
 
-    public void removeHealthiestCard(int row) {
+    /**
+     * Removes the card with the highest health from a specified row. If the card is a tank,
+     * it also updates and removes the tank's coordinates if necessary.
+     *
+     * @param row the row on the table from which to remove the healthiest card.
+     */
+    public void removeHealthiestCard(final int row) {
         int maxHealth = 0;
         int index = 0;
         MinionCard card;
@@ -124,7 +197,12 @@ public class GameTable {
         table.get(row).remove(index);
     }
 
-    public void injectHealth(int row) {
+    /**
+     * Increases the health of all cards on a specified row by 1.
+     *
+     * @param row the row of the table to inject health into (0-3).
+     */
+    public void injectHealth(final int row) {
         for (int i = 0; i < table.get(row).size(); ++i) {
             MinionCard card = table.get(row).get(i);
             int health = card.getHealth();
@@ -132,7 +210,12 @@ public class GameTable {
         }
     }
 
-    public void buffAttack(int row) {
+    /**
+     * Increases the attack damage of all cards on a specified row by 1.
+     *
+     * @param row the row of the table to buff attack on (0-3).
+     */
+    public void buffAttack(final int row) {
         for (int i = 0; i < table.get(row).size(); ++i) {
             MinionCard card = table.get(row).get(i);
             int attack = card.getAttackDamage();

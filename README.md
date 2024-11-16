@@ -2,41 +2,45 @@
 
 # Tema POO  - GwentStone
 
-<div align="center"><img src="https://tenor.com/view/witcher3-gif-9340436.gif" width="500px"></div>
+<div align="center"><img src="[https://tenor.com/view/witcher3-gif-9340436.gif](https://media1.tenor.com/m/8roYGyMXjrgAAAAd/cyno-genshin-impact.gif)" width="500px"></div>
 
-#### Assignment Link: [https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema)
+## Personal Overview
 
+A complex project that teaches the principles of OOP the hard-way, because of the need to implement multiple functionalities, while maintaining a logical game flow.
+This project took multiple days to finish, as well as countless changes to the project structure itself.
 
-## Skel Structure
+## Project Structure
 
 * src/
-  * checker/ - checker files
+  * cards/ - contains the classes used to represent the Minion Cards and the Hero Cards
   * fileio/ - contains classes used to read data from the json files
-  * main/
-      * Main - the Main class runs the checker on your implementation. Add the entry point to your implementation in it. Run Main to test your implementation from the IDE or from command line.
-      * Test - run the main method from Test class with the name of the input file from the command line and the result will be written
-        to the out.txt file. Thus, you can compare this result with ref.
-* input/ - contains the tests in JSON format
-* ref/ - contains all reference output for the tests in JSON format
+  * game/ - contains the Game Manager that distributes the play session into multiple games
+          - contains the Rounds played within one game -> this  is where the actions are handled
+  * player/ - contains the class Player, which is to say the entity who handles the cards
+  * table/ - contains the Game Table where all the cards will be put down after being chosen
 
-## Tests
+## Game Flow
 
-1. test01_game_start - 4p
-2. test02_place_card - 5p
-3. test03_place_card_invalid - 5p
-4. test04_attack_card - 5p
-5. test05_attack_card_invalid - 5p
-6. test06_use_card_ability - 5p
-7. test07_use_card_ability_invalid - 5p
-8. test08_attack_hero - 5p
-9. test09_attack_hero_invalid - 5p
-10. test10_use_hero_ability_1 - 4p
-11. test11_use_hero_ability_2 - 4p
-12. test12_use_hero_ability_invalid_1 - 4p
-13. test13_use_hero_ability_invalid_2 - 4p
-14. test14_multiple_games_valid - 5p
-15. test15_multiple_games_invalid - 5p
-16. test16_big_game - 10p
+When running the program, the first method called is that of the GameManager. Inside, all manner of classes and methods are called in order to develop the wanted output.
+The flow is as follows:
+1. Extract the list of games from the input;
+2. For each game, assign two players and start the game, by calling the .start() method from the Rounds class;
+3. From the input, assign the order in which the players are to play;
+4. Give it a go to the many rounds, that only end when the Actions List is left empty of elements;
+5. Depending on the Action, different methods are called. Most of the time, for important commands such as CardUsesAttack(), all available classes are used in order to properly update everything;
 
+## Class Rounds
 
-<div align="center"><img src="https://tenor.com/view/homework-time-gif-24854817.gif" width="500px"></div>
+The Rounds class is actually the heart of this entire project. While the .start() method is the entry-point into this class, the most important method is that of .actOnCommand().
+This is the method that parses the Actions list and assigns each command a proper method that handles it.
+Because this project requires many features, the Rounds class ended up being huge. It was espescially hard to implement all those functionalities so that they all worked well together.
+My usual approach when solving an assignment is to look at the tests in the checker and implement only the functionalities tested. This time, it did not work well at all, because
+some edge-cases would be tested later on, or the way I solved one test would not suffice for the next. This led to my projectr facing many refactorings.
+
+## Key Takeaways
+
+1. I gained a better understanding on the principles of OOP and realised that I could have done a better work at using the inheritance.
+2. The sheer scale of this project forced me to structure my ideas well, which proved to be quite the endeavour.
+3. Since finishing this project, I have learned of new ways of structuring code, such as design patterns and exception handling that I wish to use in my next project.
+4. All in all, I liked this project as it had an easy-to-grasp concept. Had I not played card games before or been able to actually imagine playing, thencoming up with the game flow would have been much harder.
+

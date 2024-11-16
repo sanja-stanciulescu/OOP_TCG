@@ -2,8 +2,6 @@
 
 # Tema POO  - GwentStone
 
-<div align="center"><img src="[https://tenor.com/view/witcher3-gif-9340436.gif](https://media1.tenor.com/m/8roYGyMXjrgAAAAd/cyno-genshin-impact.gif)" width="500px"></div>
-
 ## Personal Overview
 
 A complex project that teaches the principles of OOP the hard-way, because of the need to implement multiple functionalities, while maintaining a logical game flow.

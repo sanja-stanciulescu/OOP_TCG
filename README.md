@@ -15,8 +15,11 @@ This project took multiple days to finish, as well as countless changes to the p
 * src/
   * cards/ - contains the classes used to represent the Minion Cards and the Hero Cards
   * fileio/ - contains classes used to read data from the json files
-  * game/ - contains the Game Manager that distributes the play session into multiple games
-          - contains the Rounds played within one game -> this  is where the actions are handled
+  * game/
+    * contains the Game Manager that distributes the play session into multiple games
+    * contains the Rounds played within one game -> this  is where the actions are handled
+    * contains the Commands used to perfom each action requested
+    * contains the Error Handler that stores different Exceptions that could appear during the game
   * player/ - contains the class Player, which is to say the entity who handles the cards
   * table/ - contains the Game Table where all the cards will be put down after being chosen
 
@@ -28,16 +31,17 @@ The flow is as follows:
 1. Extract the list of games from the input;
 2. For each game, assign two players and start the game, by calling the .start() method from the Rounds class;
 3. From the input, assign the order in which the players are to play;
-4. Give it a go to the many rounds, that only end when the Actions List is left empty of elements;
-5. Depending on the Action, different methods are called. Most of the time, for important commands such as CardUsesAttack(), all available classes are used in order to properly update everything;
+4. Give a go to the many rounds, that only end when the Actions List is left empty of elements;
+5. Depending on the Action, different methods from Commands are called. Most of the time, for important commands such as CardUsesAttack(), all available classes are used in order to properly update everything;
 
-## Class Rounds
+## Class Commands
 
-The Rounds class is actually the heart of this entire project. While the .start() method is the entry-point into this class, the most important method is that of .actOnCommand().
+The Commands class is actually the heart of this entire project. While the Rounds.start() method is the entry-point into this class, the most important method is that of Rounds.actOnCommand().
 
-This is the method that parses the Actions list and assigns each command a proper method that handles it.
+This is the method that parses the Actions list and assigns each action a command (proper method that handles it).
 
-Because this project requires many features, the Rounds class ended up being huge. It was espescially hard to implement all those functionalities so that they all worked well together.
+Because this project requires many features, the Commands class ended up being huge. It was espescially hard to implement all those functionalities so that they all worked well together.
+In order to reduce the class length, I also added the ErrorHandler class and used Exceptions. This minimised the use of duplicate code.
 
 My usual approach when solving an assignment is to look at the tests in the checker and implement only the functionalities tested. This time, it did not work well at all, because
 some edge-cases would be tested later on, or the way I solved one test would not suffice for the next. This led to my project facing many refactorings.
@@ -47,5 +51,5 @@ some edge-cases would be tested later on, or the way I solved one test would not
 1. I gained a better understanding on the principles of OOP and realised that I could have done a better work at using the inheritance.
 2. The sheer scale of this project forced me to structure my ideas well, which proved to be quite the endeavour.
 3. Since finishing this project, I have learned of new ways of structuring code, such as design patterns and exception handling that I wish to use in my next project.
-4. All in all, I liked this project as it had an easy-to-grasp concept. Had I not played card games before or been able to actually imagine playing, thencoming up with the game flow would have been much harder.
+4. All in all, I liked this project as it had an easy-to-grasp concept. Had I not played card games before or been able to actually imagine playing, coming up with the game flow would have been much harder.
 

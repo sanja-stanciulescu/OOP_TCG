@@ -9,10 +9,12 @@ import java.util.Iterator;
 public class GameTable {
     private ArrayList<ArrayList<MinionCard>> table;
     private ArrayList<ArrayList<Coordinates>> tankCoordinates;
+    public static final int ROWS_NO = 4;
+    public static final int COLS_NO = 5;
 
     public GameTable() {
-        table = new ArrayList<>(4);
-        for (int i = 0; i < 4; ++i) {
+        table = new ArrayList<>(ROWS_NO);
+        for (int i = 0; i < ROWS_NO; ++i) {
             ArrayList<MinionCard> row = new ArrayList<>();
             table.add(row);
         }
@@ -43,7 +45,7 @@ public class GameTable {
      * @param card  the {@link MinionCard} to be placed.
      */
     public void placeCard(final int index, final int row, final MinionCard card) {
-        if (row >= 0 && row < 4) {
+        if (row >= 0 && row < ROWS_NO) {
             table.get(row).add(card);
         }
         if (card.getName().equals("Goliath") || card.getName().equals("Warden")) {
@@ -61,7 +63,7 @@ public class GameTable {
      * @param col the column (position) of the card within the row.
      */
     public void removeCard(final int row, final int col) {
-        if (row >= 0 && row < 4 && col >= 0 && col < table.get(row).size()) {
+        if (row >= 0 && row < ROWS_NO && col >= 0 && col < table.get(row).size()) {
             table.get(row).remove(col);
         }
     }
@@ -75,7 +77,7 @@ public class GameTable {
      * or {@code null} if the position is invalid.
      */
     public MinionCard getCard(final int row, final int col) {
-        if (row >= 0 && row < 4 && col >= 0 && col < table.get(row).size()) {
+        if (row >= 0 && row < ROWS_NO && col >= 0 && col < table.get(row).size()) {
             return table.get(row).get(col);
         }
         return null;
@@ -88,7 +90,7 @@ public class GameTable {
      * @return {@code true} if the row has fewer than 5 cards, {@code false} otherwise.
      */
     public boolean isSpaceOnRow(final int row) {
-        return table.get(row).size() < 5;
+        return table.get(row).size() < COLS_NO;
     }
 
     /**

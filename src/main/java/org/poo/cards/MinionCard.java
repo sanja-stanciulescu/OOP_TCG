@@ -24,6 +24,134 @@ public class MinionCard extends Card {
     }
 
     /**
+     * Determines the row position of the character based on the player's index.
+     * Certain characters (Sentinel, Berserker, The Cursed One, Disciple) have specific rows:
+     * <ul>
+     *     <li>If player index is 1, returns row 3 for specific characters, or row 2 otherwise.</li>
+     *     <li>If player index is 2, returns row 0 for specific characters, or row 1 otherwise.</li>
+     * </ul>
+     *
+     * @param playerIdx the index of the player (1 or 2)
+     * @return the determined row index
+     */
+    public int determineRow(final int playerIdx) {
+        if (name.equals("Sentinel")
+                || name.equals("Berserker")
+                || name.equals("The Cursed One")
+                || name.equals("Disciple")) {
+            if (playerIdx == 1) {
+                return 3;
+            } else {
+                return 0;
+            }
+        } else {
+            if (playerIdx == 1) {
+                return 2;
+            } else {
+                return 1;
+            }
+        }
+    }
+
+    /**
+     * Reduces health based on the damage received from an attack.
+     *
+     * @param damage the amount of damage to subtract from health
+     */
+    public void isHitByAttack(final int damage) {
+        health -= damage;
+    }
+
+    /**
+     * Uses this minion's attack on another minion card.
+     * Reduces the attacked card's health by this minion's attack damage.
+     *
+     * @param attackedCard the card being attacked
+     * @return 1 if the attacked card's health drops to 0 or below, 0 otherwise
+     */
+    public int useAttackOnCard(final MinionCard attackedCard) {
+        attackedCard.isHitByAttack(attackDamage);
+        attacked = 1;
+        if (attackedCard.health <= 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Uses this minion's special ability on another minion card.
+     * The ability applied depends on this minion's name:
+     * <ul>
+     *     <li><strong>The Ripper</strong> - Reduces the attacked card's attack
+     * damage by 2.</li>
+     *     <li><strong>Miraj</strong> - Swaps health values between this minion
+     * and the attacked card.</li>
+     *     <li><strong>The Cursed One</strong> - Swaps the health and attack damage
+     * values of the attacked card.</li>
+     *     <li><strong>Disciple</strong> - Increases the attacked card's health by 2.</li>
+     *     <li>Prints an error message if the minion's name is invalid.</li>
+     * </ul>
+     *
+     * @param attackedCard the card on which the ability is used
+     * @return 1 if the attacked card's health drops to 0 or below, 0 otherwise
+     */
+    public int useAbility(final MinionCard attackedCard) {
+        attacked = 1;
+        switch (name) {
+            case "The Ripper":
+                int attackedCardDamage = attackedCard.attackDamage;
+                if (attackedCardDamage - 2 <= 0) {
+                    attackedCard.attackDamage = 0;
+                } else {
+                    attackedCard.attackDamage = attackedCardDamage - 2;
+                }
+                break;
+
+            case "Miraj":
+                int healthCopy = health;
+                health = attackedCard.health;
+                attackedCard.health = healthCopy;
+                break;
+
+            case "The Cursed One":
+                int attackCopy = attackedCard.attackDamage;
+                healthCopy = attackedCard.health;
+                attackedCard.health = attackCopy;
+                attackedCard.attackDamage = healthCopy;
+                break;
+
+            case "Disciple":
+                healthCopy = attackedCard.health;
+                attackedCard.health = healthCopy + 2;
+                break;
+
+            default:
+                System.out.println("Invalid minion name");
+                break;
+        }
+        if (attackedCard.health <= 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Uses this minion's attack on a hero.
+     * Reduces the hero's health by this minion's attack damage.
+     *
+     * @param hero the hero being attacked
+     * @return 1 if the hero's health drops to 0 or below, 0 otherwise
+     */
+    public int useAttackOnHero(final HeroCard hero) {
+        attacked = 1;
+        hero.loseHealthAfterAttack(attackDamage);
+        if (hero.getHealth() <= 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
      * Retrieves the current health value.
      *
      * @return the health value
@@ -97,130 +225,6 @@ public class MinionCard extends Card {
      */
     public void setAttacked(final int attacked) {
         this.attacked = attacked;
-    }
-
-    /**
-     * Determines the row position of the character based on the player's index.
-     * Certain characters (Sentinel, Berserker, The Cursed One, Disciple) have specific rows:
-     * <ul>
-     *     <li>If player index is 1, returns row 3 for specific characters, or row 2 otherwise.</li>
-     *     <li>If player index is 2, returns row 0 for specific characters, or row 1 otherwise.</li>
-     * </ul>
-     *
-     * @param playerIdx the index of the player (1 or 2)
-     * @return the determined row index
-     */
-    public int determineRow(final int playerIdx) {
-        if (name.equals("Sentinel")
-                || name.equals("Berserker")
-                || name.equals("The Cursed One")
-                || name.equals("Disciple")) {
-            if (playerIdx == 1) {
-                return 3;
-            } else {
-                return 0;
-            }
-        } else {
-            if (playerIdx == 1) {
-                return 2;
-            } else {
-                return 1;
-            }
-        }
-    }
-
-    /**
-     * Reduces health based on the damage received from an attack.
-     *
-     * @param damage the amount of damage to subtract from health
-     */
-    public void isHitByAttack(final int damage) {
-        health -= damage;
-    }
-
-    /**
-     * Uses this minion's attack on another minion card.
-     * Reduces the attacked card's health by this minion's attack damage.
-     *
-     * @param attackedCard the card being attacked
-     * @return 1 if the attacked card's health drops to 0 or below, 0 otherwise
-     */
-    public int useAttackOnCard(final MinionCard attackedCard) {
-        attackedCard.isHitByAttack(attackDamage);
-        attacked = 1;
-        if (attackedCard.getHealth() <= 0) {
-            return 1;
-        }
-        return 0;
-    }
-
-    /**
-     * Uses this minion's special ability on another minion card.
-     * The ability applied depends on this minion's name:
-     * <ul>
-     *     <li><strong>The Ripper</strong> - Reduces the attacked card's attack
-     * damage by 2.</li>
-     *     <li><strong>Miraj</strong> - Swaps health values between this minion
-     * and the attacked card.</li>
-     *     <li><strong>The Cursed One</strong> - Swaps the health and attack damage
-     * values of the attacked card.</li>
-     *     <li><strong>Disciple</strong> - Increases the attacked card's health by 2.</li>
-     *     <li>Prints an error message if the minion's name is invalid.</li>
-     * </ul>
-     *
-     * @param attackedCard the card on which the ability is used
-     * @return 1 if the attacked card's health drops to 0 or below, 0 otherwise
-     */
-    public int useAbility(final MinionCard attackedCard) {
-        attacked = 1;
-        switch (name) {
-            case "The Ripper":
-                int attackedCardDamage = attackedCard.getAttackDamage();
-                attackedCard.setAttackDamage(attackedCardDamage - 2);
-                break;
-
-            case "Miraj":
-                int healthCopy = health;
-                health = attackedCard.getHealth();
-                attackedCard.setHealth(healthCopy);
-                break;
-
-            case "The Cursed One":
-                int attackCopy = attackedCard.getAttackDamage();
-                healthCopy = attackedCard.getHealth();
-                attackedCard.setHealth(attackCopy);
-                attackedCard.setAttackDamage(healthCopy);
-                break;
-
-            case "Disciple":
-                healthCopy = attackedCard.getHealth();
-                attackedCard.setHealth(healthCopy + 2);
-                break;
-
-            default:
-                System.out.println("Invalid minion name");
-                break;
-        }
-        if (attackedCard.getHealth() <= 0) {
-            return 1;
-        }
-        return 0;
-    }
-
-    /**
-     * Uses this minion's attack on a hero.
-     * Reduces the hero's health by this minion's attack damage.
-     *
-     * @param hero the hero being attacked
-     * @return 1 if the hero's health drops to 0 or below, 0 otherwise
-     */
-    public int useAttackOnHero(final HeroCard hero) {
-        attacked = 1;
-        hero.loseHealthAfterAttack(attackDamage);
-        if (hero.getHealth() <= 0) {
-            return 1;
-        }
-        return 0;
     }
 
     /**

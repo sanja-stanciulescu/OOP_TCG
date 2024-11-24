@@ -20,42 +20,6 @@ public class HeroCard extends Card {
     }
 
     /**
-     * Retrieves the current health value.
-     *
-     * @return the health value
-     */
-    public int getHealth() {
-        return health;
-    }
-
-    /**
-     * Sets the health value.
-     *
-     * @param health the new health value to set
-     */
-    public void setHealth(final int health) {
-        this.health = health;
-    }
-
-    /**
-     * Retrieves the attack status.
-     *
-     * @return the attack status
-     */
-    public int getAttacked() {
-        return attacked;
-    }
-
-    /**
-     * Sets the attack status.
-     *
-     * @param attacked the new attack status to set
-     */
-    public void setAttacked(final int attacked) {
-        this.attacked = attacked;
-    }
-
-    /**
      * Reduces the health based on the damage taken from an attack.
      *
      * @param attackDamage the amount of damage to subtract from health
@@ -99,6 +63,42 @@ public class HeroCard extends Card {
                 System.out.println("Invalid hero name");
                 break;
         }
+    }
+
+    /**
+     * Retrieves the current health value.
+     *
+     * @return the health value
+     */
+    public int getHealth() {
+        return health;
+    }
+
+    /**
+     * Sets the health value.
+     *
+     * @param health the new health value to set
+     */
+    public void setHealth(final int health) {
+        this.health = health;
+    }
+
+    /**
+     * Retrieves the attack status.
+     *
+     * @return the attack status
+     */
+    public int getAttacked() {
+        return attacked;
+    }
+
+    /**
+     * Sets the attack status.
+     *
+     * @param attacked the new attack status to set
+     */
+    public void setAttacked(final int attacked) {
+        this.attacked = attacked;
     }
 
     /**

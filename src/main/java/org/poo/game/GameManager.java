@@ -29,62 +29,6 @@ public class GameManager {
     }
 
     /**
-     * Retrieves the total number of games played.
-     *
-     * @return the number of games played
-     */
-    public int getGamesPlayed() {
-        return gamesPlayed;
-    }
-
-    /**
-     * Sets the total number of games played.
-     *
-     * @param gamesPlayed the new number of games played to set
-     */
-    public void setGamesPlayed(final int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
-    }
-
-    /**
-     * Retrieves the number of games won by player one.
-     *
-     * @return an {@link AtomicInteger} representing the number of games player one has won
-     */
-    public AtomicInteger getGamesPlayerOneWon() {
-        return gamesPlayerOneWon;
-    }
-
-    /**
-     * Sets the number of games won by player one.
-     *
-     * @param gamesPlayerOneWon an {@link AtomicInteger} representing the new number of games
-     * player one has won
-     */
-    public void setGamesPlayerOneWon(final AtomicInteger gamesPlayerOneWon) {
-        this.gamesPlayerOneWon = gamesPlayerOneWon;
-    }
-
-    /**
-     * Retrieves the number of games won by player two.
-     *
-     * @return an {@link AtomicInteger} representing the number of games player two has won
-     */
-    public AtomicInteger getGamesPlayerTwoWon() {
-        return gamesPlayerTwoWon;
-    }
-
-    /**
-     * Sets the number of games won by player two.
-     *
-     * @param gamesPlayerTwoWon an {@link AtomicInteger} representing the new number of games
-     * player two has won
-     */
-    public void setGamesPlayerTwoWon(final AtomicInteger gamesPlayerTwoWon) {
-        this.gamesPlayerTwoWon = gamesPlayerTwoWon;
-    }
-
-    /**
      * Plays multiple games based on the provided input data and outputs the results.
      *
      * @param output         An ArrayNode to store the output of each action in a org.poo.game.
@@ -109,8 +53,6 @@ public class GameManager {
             Player playerTwo = initializePlayerTwo(inputData, startGame);
 
             //Initializes the start of the rounds
-            int manaPerRound = 0;
-            int currentTurn = 0;
             GameTable table = new GameTable();
             Rounds round = new Rounds();
 
@@ -145,7 +87,7 @@ public class GameManager {
      * @return a {@link Player} object representing player one, with the shuffled deck
      * and assigned hero card
      */
-    public Player initializePlayerOne(final Input inputData, final StartGameInput startGame) {
+    private Player initializePlayerOne(final Input inputData, final StartGameInput startGame) {
         //1. Pick chosen deck
         ArrayList<CardInput> deckOne = new ArrayList<>(
                 inputData.getPlayerOneDecks()
@@ -189,7 +131,7 @@ public class GameManager {
      * @return a {@link Player} object representing player one, with the shuffled deck
      * and assigned hero card
      */
-    public Player initializePlayerTwo(final Input inputData, final StartGameInput startGame) {
+    private Player initializePlayerTwo(final Input inputData, final StartGameInput startGame) {
         //1. Pick chosen deck
         ArrayList<CardInput> deckTwo = new ArrayList<>(
                 inputData.getPlayerTwoDecks()

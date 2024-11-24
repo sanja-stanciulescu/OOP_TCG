@@ -21,6 +21,24 @@ public class Card {
     }
 
     /**
+     * Executes an attack on another card.
+     */
+    public void useAttackOnCard() {
+    }
+
+    /**
+     * Activates the card's ability.
+     */
+    public void useAbility() {
+    }
+
+    /**
+     * Executes an attack on the hero.
+     */
+    public void useAttackOnHero() {
+    }
+
+    /**
      * Retrieves the current mana value.
      *
      * @return the mana value
@@ -90,24 +108,6 @@ public class Card {
      */
     public void setName(final String name) {
         this.name = name;
-    }
-
-    /**
-     * Executes an attack on another card.
-     */
-    public void useAttackOnCard() {
-    }
-
-    /**
-     * Activates the card's ability.
-     */
-    public void useAbility() {
-    }
-
-    /**
-     * Executes an attack on the hero.
-     */
-    public void useAttackOnHero() {
     }
 
     /**

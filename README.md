@@ -1,6 +1,6 @@
 
 
-# Tema POO  - GwentStone
+# The Card Game
 
 <div align="center"><img src="https://media1.tenor.com/m/8roYGyMXjrgAAAAd/cyno-genshin-impact.gif" width="500px"></div>
 
@@ -9,6 +9,16 @@
 A complex project that teaches the principles of OOP the hard-way, because of the need to implement multiple functionalities, while maintaining a logical game flow.
 
 This project took multiple days to finish, as well as countless changes to the project structure itself.
+
+## Project Concepts
+
+The project involves implementing a simplified version of a strategic card game similar to Gwent.
+
+The game flow involves players engaging in turn-based rounds, where each player strategically uses cards from their hand to achieve specific objectives. 
+
+Players manage resources, deploy cards, and execute actions based on predefined rules. Cards may have unique effects, interact with other cards, or impact the game state. 
+
+The game progresses through multiple phases, culminating in determining a winner based on criteria like health.
 
 ## Project Structure
 
